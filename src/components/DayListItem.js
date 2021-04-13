@@ -14,7 +14,6 @@ export default function DayListItem(props) {
     } else {
       text =`${props.spots} spots remaining`
     }
-    render()
       return text;
   };
   
