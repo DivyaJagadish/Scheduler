@@ -1,6 +1,6 @@
 import React from "react";
 import classNames  from "classnames";
-
+import  "components/Appointment/styles.scss"
 export default function Header(props) {
 
   
