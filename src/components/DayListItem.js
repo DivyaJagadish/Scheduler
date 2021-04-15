@@ -1,8 +1,6 @@
 import React from "react";
 import classNames  from "classnames";
-
 import "components/DayListItem.scss"
-import { render } from "@testing-library/react";
 export default function DayListItem(props) {
   let dayClass = classNames({"day-list__item":true,"day-list__item--selected": props.selected, "day-list__item--full":(props.spots === 0) ? true :false })
   const formatSpots = function () {

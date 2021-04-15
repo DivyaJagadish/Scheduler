@@ -52,8 +52,16 @@ const appointments = [
 ];
 
 export default function Application(props) {
-  const [days, setDays] = useState([]);
-  const [Defaultday,setDay] = useState("Monday")
+  const setDay = day =>setState(prev => ({ ...prev, day }));;
+  const setDays = (days) => {
+    setState(prev => ({ ...prev, days }));
+};
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    // you may put the line below, but will have to remove/comment hardcoded appointments variable
+    appointments: {}
+  });
   useEffect(()=>{
     axios.get("http://localhost:8001/api/days")
     .then((result)=>{
@@ -73,8 +81,8 @@ export default function Application(props) {
 <hr className="sidebar__separator sidebar--centered" />
 <nav className="sidebar__menu">
   <DayList
-  days={days}
-  day= {Defaultday}
+  days={state.days}
+  day= {state.day}
   setDay={setDay}
 />
 </nav>
@@ -86,7 +94,7 @@ export default function Application(props) {
         {/* Replace this with the sidebar elements during the "Project Setup & Familiarity" activity. */}
       </section>
       <section className="schedule">
-        { appointments.map((appointment) => 
+        {appointments.map((appointment) => 
         <Appointment key ={appointment.id} {...appointment} />)}
         <Appointment key ="last" time="5pm" />
       </section>
