@@ -1,6 +1,6 @@
 
 
-export function getAppointmentsForDay(state, day) {
+export  function getAppointmentsForDay(state, day) {
   let arrayAppointments =[];
   let  dayappointmentArray =[];
   dayappointmentArray = state.days.filter(day1 => day1.name === day);
