@@ -6,7 +6,7 @@ import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty"
 
 export default function Appointment(props) {
-  let AppointmentClass = classNames({"appointment":true,"last-of-type":((props.id)=== "last")? true:false})
+  let AppointmentClass = classNames({"appointment":true,"last-of-type":((props.key)=== "last")? true:false})
   return (
     <Fragment>
     <article className ={AppointmentClass}>  
@@ -15,4 +15,4 @@ export default function Appointment(props) {
    </article>
    </Fragment>
   );
-}
+  }
