@@ -14,3 +14,15 @@ export  function getAppointmentsForDay(state, day) {
     }
   return arrayAppointments;
 }
+// Helper to getInterview
+export  function getInterview(state, interview) {
+if(interview){
+  for ( const interviewer in state.interviewers) {
+    if (state.interviewers[interviewer].id === interview.interviewer){
+      interview["interviewer"] = state.interviewers[interviewer];
+      break;
+    }
+  }
+}
+  return interview;
+}
