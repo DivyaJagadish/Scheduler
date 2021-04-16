@@ -21,7 +21,7 @@ const { mode, transition, back } = useVisualMode(
     <Header  time = {props.time}/>
     {mode === EMPTY && <Empty onAdd={() => transition("CREATE")} />}
     {mode === SHOW && (<Show student={props.interview.student} interviewer={props.interview.interviewer}/>)}
-    {mode === CREATE && <Form  interviewers = {[]} onSave = {()=> console.log("onSave")} onCancel ={()=>back()}/>}
+    {mode === CREATE && <Form  interviewers = {props.interviewers} onSave = {()=> console.log("onSave")} onCancel ={()=>back()}/>}
    </article>
    </Fragment>
   );
