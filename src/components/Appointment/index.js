@@ -7,7 +7,8 @@ import Empty from "components/Appointment/Empty"
 import Form from "components/Appointment/Form"
 import useVisualMode from "hooks/useVisualMode";
 import  Status  from "components/Appointment/Status";
-import Confirm from "components/Appointment/Confirm"
+import Confirm from "components/Appointment/Confirm";
+import Error from "components/Appointment/Error";
 
 export default function Appointment(props) {
 let AppointmentClass = classNames({"appointment":true,"last-of-type":((props.id)=== "last")? true:false})
@@ -31,17 +32,18 @@ function save(name, interviewer) {
   };
   transition("SAVING");
   props.bookInterview(props.id,interview)
-  .then(()=>transition("SHOW"));
+  .then(()=>transition("SHOW"))
+  .catch((err)=> transition("ERROR_SAVE",true));
 }
 
-function deleteInterview() {
-  const interview = null;
-  transition("DELETING")
-  // props.cancelInterview(props.id,interview)
-  // .then(transition("EMPTY"));
+function destroy() {
+  transition(DELETING, true);
+  props
+   .cancelInterview(props.id)
+   .then(() => transition(EMPTY))
+   .catch(error => transition(ERROR_DELETE, true));
+ }
 
-};
-// onDelete ={deleteInterview}
   return (
     <Fragment>
     <article className ={AppointmentClass}>  
@@ -51,8 +53,10 @@ function deleteInterview() {
     {mode === CREATE && <Form  interviewers = {props.interviewers} onSave = {save} onCancel ={()=>back()}/>}
     {mode === SAVING && <Status message ={"Saving"} />}
     {mode === DELETING && <Status message ={"Deleting"} />}
-    {mode === CONFIRM && <Confirm  message = {"Are you sure you want to delete?"}onCancel= {()=>back()} onConfirm ={()=> {deleteInterview() }}/>}
+    {mode === CONFIRM && <Confirm  message = {"Are you sure you want to delete?"}onCancel= {()=>back()} onConfirm ={destroy}/>}
     {mode === EDIT && <Form  name = {props.interview.student} interviewers = {props.interviewers}  interviewer ={props.interview.interviewer.id} onSave = {save} onCancel ={()=>back()}/>}
+    {mode === ERROR_SAVE && <Error message ={"Error :Cannot Save"} onClose ={()=>back()}/>}
+    { mode === ERROR_DELETE && <Error message ={"ERROR :Cannot DElete"} onClose ={()=>back()}/>}
    </article>
    </Fragment>
   );
