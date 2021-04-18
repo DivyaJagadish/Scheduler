@@ -18,7 +18,7 @@ const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM ="CONFIRM";
-// const EDIT = "EDIT";
+const EDIT = "EDIT";
 const { mode, transition, back } = useVisualMode(
   props.interview ? SHOW : EMPTY
 );
@@ -50,7 +50,7 @@ function deleteInterview() {
     {mode === SAVING && <Status message ={"Saving"} />}
     {mode === DELETING && <Status message ={"Deleting"} />}
     {mode === CONFIRM && <Confirm  message = {"Are you sure you want to delete?"}onCancel= {()=>back()} onConfirm ={()=> {deleteInterview() }}/>}
-    {/* {mode === EDIT && <Form  name = {props.interview.student} interviewers = {props.interviewers}  interviewer ={props.interview.interviewer} onSave = {save} onCancel ={()=>back()}/>} */}
+    {mode === EDIT && <Form  name = {props.interview.student} interviewers = {props.interviewers}  interviewer ={props.interview.interviewer} onSave = {save} onCancel ={()=>back()}/>}
    </article>
    </Fragment>
   );
