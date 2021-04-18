@@ -19,9 +19,19 @@ export  default function useApplicationData(){
     Promise.all([dayspromise,appointmentpromise,interviewerspromise])
     .then ((all)=>{
     setState(prev =>({...prev, days:all[0].data, appointments: all[1].data, interviewers:all[2].data}))
-    });
     
+
+    });
   },[])
+  function spotsremaining (value){
+    for (const element of state.days){
+      if (element.name === state.day) {
+     
+        element.spots +=value;
+      }
+    } 
+  };
+//need to implement for edit
 
   function bookInterview(id, interview) {
     const appointment = {
@@ -32,13 +42,25 @@ export  default function useApplicationData(){
       ...state.appointments,
       [id]: appointment
     };
+ 
+   
+    spotsremaining(-1);
+   
+  console.log(state);
+   const days =[
+    ...state.days
+  ]
     return axios.put(`/api/appointments/${id}`,{interview})
-    .then( setState(prev => ({ ...prev,appointments})));
+    .then( setState(prev => ({ ...prev,appointments,days})));
   }
-  
+
   function cancelInterview(id){
+    spotsremaining(1);
+    const days =[
+      ...state.days
+    ]
     return axios.delete(`/api/appointments/${id}`)
-    .then(()=>setState(prev => (prev)));
+    .then(()=>setState(prev => ({...prev,days})));
   }
 
 return{state,setDay,bookInterview,cancelInterview} 
