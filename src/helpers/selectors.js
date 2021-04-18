@@ -40,6 +40,6 @@ export  function getInterviewersForDay(state, day) {
         }
       }
     }
-    console.log(arrayInterviewers);
+
   return arrayInterviewers;
 }
