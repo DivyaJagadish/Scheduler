@@ -34,6 +34,10 @@ export  default function useApplicationData(){
 //need to implement for edit
 
   function bookInterview(id, interview) {
+    console.log(state.appointments[id].interview )
+    if(state.appointments[id].interview === null){
+      spotsremaining(-1);
+    }
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -42,11 +46,7 @@ export  default function useApplicationData(){
       ...state.appointments,
       [id]: appointment
     };
- 
-   
-    spotsremaining(-1);
-   
-  console.log(state);
+
    const days =[
     ...state.days
   ]
@@ -56,10 +56,13 @@ export  default function useApplicationData(){
 
   function cancelInterview(id){
     spotsremaining(1);
+    state.appointments[id].interview = null;
     const days =[
       ...state.days
     ]
+
     return axios.delete(`/api/appointments/${id}`)
+    .then((results)=>{console.log(state)})
     .then(()=>setState(prev => ({...prev,days})));
   }
 
