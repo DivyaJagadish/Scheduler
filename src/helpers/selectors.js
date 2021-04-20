@@ -14,7 +14,7 @@ export  function getAppointmentsForDay(state, day) {
     }
   return arrayAppointments;
 }
-// Helper to getInterview
+// Helper to getInterview returns the interview object
 export  function getInterview(state, interview) {
 if(interview){
   for ( const interviewer in state.interviewers) {
@@ -28,6 +28,8 @@ if(interview){
 }
 
 
+//REturns array of interviewers for the day
+
 export  function getInterviewersForDay(state, day) {
   let arrayInterviewers =[];
   let  dayInterviewersArray =[];
@@ -40,6 +42,5 @@ export  function getInterviewersForDay(state, day) {
         }
       }
     }
-
   return arrayInterviewers;
 }
