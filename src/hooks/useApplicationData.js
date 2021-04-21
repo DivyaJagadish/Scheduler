@@ -23,21 +23,21 @@ export  default function useApplicationData(){
 
     });
   },[])
-  function spotsremaining (value){
-    for (const element of state.days){
-      if (element.name === state.day) {
+  // function spotsremaining (value){
+  //   for (const element of state.days){
+  //     if (element.name === state.day) {
      
-        element.spots +=value;
-      }
-    } 
-  };
+  //       element.spots +=value;
+  //     }
+  //   } 
+  // };
 //need to implement for edit
 
   function bookInterview(id, interview) {
     console.log(state.appointments[id].interview )
-    if(state.appointments[id].interview === null){
-      spotsremaining(-1);
-    }
+    // if(state.appointments[id].interview === null){
+    //   spotsremaining(-1);
+    // }
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -55,7 +55,7 @@ export  default function useApplicationData(){
   }
 
   function cancelInterview(id){
-    spotsremaining(1);
+    // spotsremaining(1);
     state.appointments[id].interview = null;
     const days =[
       ...state.days
