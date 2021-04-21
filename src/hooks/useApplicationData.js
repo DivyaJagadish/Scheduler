@@ -50,7 +50,7 @@ export  default function useApplicationData(){
    const days =[
     ...state.days
   ]
-    return axios.put(`/api/appointments/${id}`,{interview})
+    return axios.put(`/api/appointments/${id}`)
     .then( setState(prev => ({ ...prev,appointments,days})));
   }
 
