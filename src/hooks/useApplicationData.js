@@ -13,9 +13,9 @@ export  default function useApplicationData(){
  
 
   useEffect(()=>{
-    const dayspromise = axios.get("http://localhost:8001/api/days");
-    const appointmentpromise = axios.get("http://localhost:8001/api/appointments")
-    const interviewerspromise = axios.get("http://localhost:8001/api/interviewers")
+    const dayspromise = axios.get("/api/days");
+    const appointmentpromise = axios.get("/api/appointments")
+    const interviewerspromise = axios.get("/api/interviewers")
     Promise.all([dayspromise,appointmentpromise,interviewerspromise])
     .then ((all)=>{
     setState(prev =>({...prev, days:all[0].data, appointments: all[1].data, interviewers:all[2].data}))
