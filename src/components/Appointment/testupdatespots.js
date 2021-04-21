@@ -32,12 +32,22 @@ const state = {
     },
   },
 };
-
-const updateSpots = function (dayName, days, appointments) {
-
-  // your code goes here
-
-};
+const getSpotsForDay =function(dayObj,appointments){
+  let spots = 0;
+  for (const id of dayObj.appointments){
+    const appointment =appointments[id];
+    if(!appointment.interview){
+      spots++;
+    }
+  } return spots;
+}
+function updateSpots(dayName,days,appointments){
+  const dayObj = days.find(day =>day.name === dayName);
+  const spots = getSpotsForDay(dayObj,appointments);
+  const newDay ={ ...dayObj,spots}
+  const newDays =days.map(day =>day.name ===dayName ? newDay :days)
+  return newDays;
+}
 
 // This is the initial state
 console.log("\n*** Initial Days State\n", state.days);

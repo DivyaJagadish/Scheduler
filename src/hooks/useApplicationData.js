@@ -23,21 +23,25 @@ export  default function useApplicationData(){
 
     });
   },[])
-  // function spotsremaining (value){
-  //   for (const element of state.days){
-  //     if (element.name === state.day) {
-     
-  //       element.spots +=value;
-  //     }
-  //   } 
-  // };
+  function spotsremaining (value){
+    const newdays = [...state.days]
+    for (const index in state.days){
+      if (state.days[index].name === state.day) {
+        newdays[index] = {...state.days[index]}
+        newdays[index].spots +=value; 
+      }
+    }  return newdays;
+  };
 //need to implement for edit
 
   function bookInterview(id, interview) {
+    let days =[
+      ...state.days
+    ]
     console.log(state.appointments[id].interview )
-    // if(state.appointments[id].interview === null){
-    //   spotsremaining(-1);
-    // }
+    if(state.appointments[id].interview === null){
+      days = spotsremaining(-1);
+    }
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -47,23 +51,31 @@ export  default function useApplicationData(){
       [id]: appointment
     };
 
-   const days =[
-    ...state.days
-  ]
-    return axios.put(`/api/appointments/${id}`)
+  
+    return axios.put(`/api/appointments/${id}`,{interview})
     .then( setState(prev => ({ ...prev,appointments,days})));
   }
 
   function cancelInterview(id){
-    // spotsremaining(1);
-    state.appointments[id].interview = null;
-    const days =[
+    let days =[
       ...state.days
     ]
+   days = spotsremaining(1);
+    // const newappointments = {...state.appointments}
+    // newappointments[id].interview = null;
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    console.log(appointment);
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
 
     return axios.delete(`/api/appointments/${id}`)
     .then((results)=>{console.log(state)})
-    .then(()=>setState(prev => ({...prev,days})));
+    .then(()=>setState(prev => ({...prev,appointments,days})));
   }
 
 return{state,setDay,bookInterview,cancelInterview} 

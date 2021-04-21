@@ -11,10 +11,12 @@ describe("Application", () => {
 
 
   beforeEach(() => {
-    // getByText will not be available outside here 
     cleanup();
+    jest.resetModules();
   });
-
+afterEach(()=>{
+  cleanup();
+});
 
   test("defaults to Monday and changes the schedule when a new day is selected", () => {
     const { getByText } = render(<Application />);
@@ -24,6 +26,7 @@ describe("Application", () => {
       expect(getByText("Leopold Silvers")).toBeInTheDocument();
     });
   });
+
 
   test("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
     const { container, debug } = render(<Application />);
@@ -52,7 +55,7 @@ describe("Application", () => {
 
   });
 
-
+cleanup();
 
   test("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
     const { container, debug } = render(<Application />);
@@ -81,6 +84,8 @@ describe("Application", () => {
     expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
 
   });
+
+cleanup();
 
   test("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
 
@@ -111,17 +116,18 @@ describe("Application", () => {
 
   });
 
+  cleanup();
   it("shows the save error when failing to save an appointment", async () => {
 
-
+ 
     const { container, debug } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
-    axios.put.mockRejectedValueOnce();
+   
     const appointments = getAllByTestId(container, "appointment");
     const appointment = appointments[1];
     fireEvent.click(getByAltText(appointment, "Edit"));
-
+    axios.put.mockRejectedValueOnce();
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
       target: { value: "Lydia Miller-Jones" }
     });
@@ -135,7 +141,7 @@ describe("Application", () => {
 
     fireEvent.click(getByAltText(appointment, "Close"));
 
-    await waitForElement(() => getByText(container, "Archie Cohen"));
+    await waitForElement(() => getByPlaceholderText(appointment,/enter student name/i));
 
 
     const day = getAllByTestId(container, "day").find(day =>
@@ -144,6 +150,8 @@ describe("Application", () => {
 
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   });
+
+cleanup();
 
   test("shows the delete error when failing to delete an existing appointment", async () => {
     const { container, debug } = render(<Application />);

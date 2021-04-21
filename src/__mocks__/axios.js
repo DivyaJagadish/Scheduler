@@ -1,3 +1,4 @@
+import { cleanup } from "@testing-library/react/dist";
 
 
 const fixtures = {
@@ -62,7 +63,7 @@ export default {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
-        data: fixtures.days
+        data: [...fixtures.days]
       });
     }
 
@@ -71,7 +72,7 @@ export default {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
-        data: fixtures.appointments
+        data: {...fixtures.appointments}
       });
     }
 
@@ -80,7 +81,7 @@ export default {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
-        data: fixtures.interviewers
+        data: {...fixtures.interviewers}
       });
     }
   }),
