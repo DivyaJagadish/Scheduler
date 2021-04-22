@@ -1,6 +1,6 @@
-import { cleanup } from "@testing-library/react/dist";
+// Axios mock and data for test
 
-
+// Data
 const fixtures = {
   days: [
     {
@@ -55,9 +55,13 @@ const fixtures = {
     }
   }
 };
-//mock functions
+
+// Axios mock functions
+
+
 export default {
   defaults: { baseURL: "" },
+  //Axios.get mock
   get: jest.fn(url => {
     if (url === "/api/days") {
       return Promise.resolve({
@@ -72,7 +76,7 @@ export default {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
-        data: {...fixtures.appointments}
+        data: { ...fixtures.appointments }
       });
     }
 
@@ -81,24 +85,27 @@ export default {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
-        data: {...fixtures.interviewers}
+        data: { ...fixtures.interviewers }
       });
     }
   }),
-  put : jest.fn((url) => {
-  if("/api/appointments/:Id") {
-    return Promise.resolve({
-       status: 204, 
-       statusText: "No Content" 
-    });
-  }
-}),
-delete:jest.fn((url) => {
-  if("/api/appointments/:Id") {
-    return Promise.resolve({
-       status: 204, 
-       statusText: "No Content" 
-    });
-  }
-})
+  //Axios.put mock
+  put: jest.fn((url) => {
+    if ("/api/appointments/:Id") {
+      return Promise.resolve({
+        status: 204,
+        statusText: "No Content"
+      });
+    }
+  }),
+
+  //Axios .delete mock
+  delete: jest.fn((url) => {
+    if ("/api/appointments/:Id") {
+      return Promise.resolve({
+        status: 204,
+        statusText: "No Content"
+      });
+    }
+  })
 };

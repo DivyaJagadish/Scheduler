@@ -1,8 +1,9 @@
 
-
+// Function to get the appointments array  of appointments for a day
 export  function getAppointmentsForDay(state, day) {
   let arrayAppointments =[];
   let  dayappointmentArray =[];
+  // Finds the appointments array for a day
   dayappointmentArray = state.days.filter(day1 => day1.name === day);
     if(dayappointmentArray.length > 0)
     for (const element of dayappointmentArray[0].appointments ){
@@ -14,6 +15,7 @@ export  function getAppointmentsForDay(state, day) {
     }
   return arrayAppointments;
 }
+
 // Helper to getInterview returns the interview object
 export  function getInterview(state, interview) {
 if(interview){
@@ -28,7 +30,7 @@ if(interview){
 }
 
 
-//REturns array of interviewers for the day
+//Returns array of interviewers for the day
 
 export  function getInterviewersForDay(state, day) {
   let arrayInterviewers =[];

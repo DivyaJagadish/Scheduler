@@ -13,6 +13,10 @@ function validate() {
     setError("Student name cannot be blank");
     return;
   }
+  if(interviewer === null) {
+    setError("Interviewer name cannot be blank");
+    return;
+  }
 
   setError("");
   props.onSave(name, interviewer);

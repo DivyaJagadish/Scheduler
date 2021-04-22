@@ -1,15 +1,11 @@
 import React from "react";
-
 import { render, cleanup } from "@testing-library/react";
-
 import Appointment from "components/Appointment";
-
- import useApplicationData from "hooks/useApplicationData"
-import { getAppointmentsForDay,getInterview,getInterviewersForDay } from "helpers/selectors";
 
 afterEach(cleanup);
 
 it("renders without crashing", () => {
+  // check if it renders  Appointment 
   render(<Appointment 
     key={1}
     id={2}

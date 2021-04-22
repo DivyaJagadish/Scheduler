@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import "components/InterviewerList.scss"
-import InterviewListItem from "components/InterviewListItem"
-export default function InterviewerList(props) {
+import InterviewListItem from "components/InterviewListItem";
 
+// Component to render the List of Interviewers WITH THE STYLING 
+export default function InterviewerList(props) {
   const InterviewerList = props.interviewers.map((interviewer) =>
   <InterviewListItem 
   key= {interviewer.id}
@@ -20,6 +21,7 @@ export default function InterviewerList(props) {
   </section>
   )
 }
+
 InterviewerList.propTypes = {
   interviewers: PropTypes.array.isRequired
 };
