@@ -39,7 +39,7 @@ export  default function useApplicationData(){
     let days =[
       ...state.days
     ]
-    console.log(state.appointments[id].interview )
+   
 
     // Checks whether the edit or add if edit thenit will not be null
     if(state.appointments[id].interview === null){
@@ -63,7 +63,6 @@ export  default function useApplicationData(){
     let days =[
       ...state.days
     ]
-
     // updates spots after deletion
    days = spotsremaining(1);
 
@@ -71,7 +70,6 @@ export  default function useApplicationData(){
       ...state.appointments[id],
       interview: null
     };
-    console.log(appointment);
     const appointments = {
       ...state.appointments,
       [id]: appointment
